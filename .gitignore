@@ -1,0 +1,11 @@
+# Compiled classes
+*.class
+
+# Maven build
+target
+
+# Eclipse
+.classpath
+.project
+.metadata
+.settings
