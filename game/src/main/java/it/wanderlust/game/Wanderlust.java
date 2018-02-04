@@ -58,6 +58,8 @@ public class Wanderlust {
     }
 
     private static void play(Map map, Player player, WanderlustUI ui) {
+	boolean exit = false;
+
 	do {
 	    Area currentArea = map.getCurrentArea();
 	    ui.showCurrentAreaInfo(currentArea);
@@ -69,12 +71,45 @@ public class Wanderlust {
 
 	    if (player.getHp() > 0) {
 		System.out.println();
-		Integer nextArea = ui.getNextArea(map);
-		map.explore(nextArea, player);
+		List<String> actions = getAvailablePlayerActions();
+		Integer nextPlayerAction = ui.getNextPlayerAction(actions);
+		exit = performNextAction(nextPlayerAction, map, player, ui);
+
 	    }
-	} while (player.getHp() > 0);
+	} while (!exit && player.getHp() > 0);
 
 	ui.gameOver();
+    }
+
+    private static boolean performNextAction(Integer nextPlayerAction, Map map, Player player, WanderlustUI ui) {
+	boolean exit = false;
+
+	switch (nextPlayerAction) {
+	case 0:
+	    Integer nextArea = ui.getNextArea(map);
+	    map.explore(nextArea, player);
+	    break;
+	case 1:
+	    // TODO: game saving
+	    break;
+	case 2:
+	    exit = true;
+	    break;
+	default:
+	    break;
+	}
+
+	return exit;
+    }
+
+    private static List<String> getAvailablePlayerActions() {
+	List<String> options = new ArrayList<>();
+
+	options.add("Explore");
+	options.add("Save");
+	options.add("Exit");
+
+	return options;
     }
 
     private static void fight(Player player, List<Monster> monsters, WanderlustUI ui) {

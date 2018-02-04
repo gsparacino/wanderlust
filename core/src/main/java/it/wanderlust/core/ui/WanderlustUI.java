@@ -90,6 +90,15 @@ public interface WanderlustUI {
     public Move.Type getCombatMove();
 
     /**
+     * Displays the in-game menu and returns the user's next action
+     *
+     * @param options
+     *            the {@link List} of options
+     * @return the user's choice
+     */
+    public Integer getNextPlayerAction(List<String> options);
+
+    /**
      * @return the index of next {@link Area} of the map to explore
      */
     public Integer getNextArea(Map map);

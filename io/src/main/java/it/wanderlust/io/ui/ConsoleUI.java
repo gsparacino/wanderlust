@@ -200,4 +200,22 @@ public class ConsoleUI implements WanderlustUI {
 	return choice;
     }
 
+    @Override
+    public Integer getNextPlayerAction(List<String> options) {
+	System.out.println("What do you want to do next?");
+	Integer choice = null;
+
+	do {
+	    for (int i = 0; i < options.size(); i++) {
+		String option = options.get(i);
+		System.out.println("[" + i + "] " + option);
+	    }
+	    String input = getInput(null);
+	    choice = Integer.valueOf(input);
+	} while (choice < 0 || choice > options.size());
+
+	System.out.println();
+	return choice;
+    }
+
 }
