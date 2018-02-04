@@ -64,4 +64,12 @@ public class Fight {
 	return new RoundOutcome(attacker, defender, winner, attackerMove, defenderMove);
     }
 
+    /**
+     * @return <code>true</code> if one of the two opponents folds or dies, else
+     *         otherwise
+     */
+    public boolean isOver() {
+	return attacker.getHp() == 0 || defender.getHp() == 0;
+    }
+
 }

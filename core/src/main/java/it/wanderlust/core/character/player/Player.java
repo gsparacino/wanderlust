@@ -6,6 +6,7 @@ package it.wanderlust.core.character.player;
 import it.wanderlust.core.character.Character;
 import it.wanderlust.core.combat.Move;
 import it.wanderlust.core.combat.Move.Type;
+import it.wanderlust.core.ui.WanderlustUI;
 
 /**
  * The character used by the player.
@@ -16,15 +17,15 @@ import it.wanderlust.core.combat.Move.Type;
 public class Player extends Character {
 
     private Integer xp;
-    private final PlayerUI playerUI;
+    private final WanderlustUI ui;
 
     /**
      * Creates a new character for the player with the provided name
      */
-    public Player(String name, Integer maxHp, PlayerUI playerUI) {
+    public Player(String name, Integer maxHp, WanderlustUI ui) {
 	super(name, maxHp);
 	this.xp = 0;
-	this.playerUI = playerUI;
+	this.ui = ui;
     }
 
     /**
@@ -34,6 +35,7 @@ public class Player extends Character {
      *            the amount of XP to add
      */
     public void addXp(Integer xp) {
+	ui.showMessage("You gained " + xp + "XP");
 	this.xp += xp;
     }
 
@@ -46,19 +48,19 @@ public class Player extends Character {
 
     @Override
     public Move attack() {
-	Type combatMove = playerUI.getCombatMove();
+	Type combatMove = ui.getCombatMove();
 	return new Move(combatMove, 1);
     }
 
     @Override
     public void hurt(Integer hp) {
 	super.hurt(hp);
-	playerUI.notifyEvent("You lost " + hp + " HP");
+	ui.showMessage("You lost " + hp + " HP");
     }
 
     @Override
     public void heal(Integer hp) {
 	super.heal(hp);
-	playerUI.notifyEvent("You gained " + hp + " HP");
+	ui.showMessage("You gained " + hp + " HP");
     }
 }

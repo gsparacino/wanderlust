@@ -40,6 +40,8 @@ public class Map {
      */
     public Exploration explore(int index, Player player) {
 	Area areaToExplore = neighboringAreas.get(index);
+	currentArea = areaToExplore;
+	neighboringAreas = generateNeighboringAreas();
 	return new Exploration(player, areaToExplore);
     }
 
