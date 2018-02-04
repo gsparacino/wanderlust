@@ -44,15 +44,21 @@ public class Player extends Character {
 	return this.xp;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see it.wanderlust.core.character.Character#attack()
-     */
     @Override
     public Move attack() {
 	Type combatMove = playerUI.getCombatMove();
 	return new Move(combatMove, 1);
     }
 
+    @Override
+    public void hurt(Integer hp) {
+	super.hurt(hp);
+	playerUI.notifyEvent("You lost " + hp + " HP");
+    }
+
+    @Override
+    public void heal(Integer hp) {
+	super.heal(hp);
+	playerUI.notifyEvent("You gained " + hp + " HP");
+    }
 }
