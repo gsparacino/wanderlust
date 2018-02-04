@@ -18,9 +18,5 @@
 		<groupId>it.wanderlust</groupId>
 		<artifactId>core</artifactId>
 	</dependency>
-	<dependency>
-		<groupId>it.wanderlust</groupId>
-		<artifactId>theme</artifactId>
-	</dependency>
   </dependencies>
 </project>

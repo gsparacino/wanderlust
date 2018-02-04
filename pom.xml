@@ -27,11 +27,6 @@
 				<artifactId>core</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-			<dependency>
-				<groupId>it.wanderlust</groupId>
-				<artifactId>theme</artifactId>
-				<version>${project.version}</version>
-			</dependency>
 
 			<!-- JUnit -->
 			<dependency>
