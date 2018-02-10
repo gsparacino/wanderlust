@@ -69,7 +69,7 @@ public class Fight {
      *         otherwise
      */
     public boolean isOver() {
-	return attacker.getHp() == 0 || defender.getHp() == 0;
+	return !attacker.isAlive() || !defender.isAlive();
     }
 
 }

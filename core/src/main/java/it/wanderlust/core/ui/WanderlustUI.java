@@ -3,8 +3,6 @@
  */
 package it.wanderlust.core.ui;
 
-import java.util.List;
-
 import it.wanderlust.core.combat.Fight;
 import it.wanderlust.core.combat.Move;
 import it.wanderlust.core.combat.RoundOutcome;
@@ -38,13 +36,18 @@ public interface WanderlustUI {
     public void showMessage(String message);
 
     /**
-     * Displays the main menu and returns the user input
+     * Displays the main menu and returns the action chosen by the player
      * 
-     * @param commands
-     *            the {@link List} of commands of the menu
-     * @return <code>true</code> if the game should be closed
+     * @return the action chosen by the player
      */
-    public Integer mainMenu(List<String> commands);
+    public MainMenuAction mainMenu();
+
+    /**
+     * Displays the in-game menu and returns the one chosen by the player
+     * 
+     * @return the action chosen by the player
+     */
+    public InGameAction inGameMenu();
 
     /**
      * Gets the input from the user and executes the provided interpreter
@@ -88,15 +91,6 @@ public interface WanderlustUI {
      * @return the combat move chosen by the player
      */
     public Move.Type getCombatMove();
-
-    /**
-     * Displays the in-game menu and returns the user's next action
-     *
-     * @param options
-     *            the {@link List} of options
-     * @return the user's choice
-     */
-    public Integer getNextPlayerAction(List<String> options);
 
     /**
      * @return the index of next {@link Area} of the map to explore

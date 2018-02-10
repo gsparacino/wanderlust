@@ -14,6 +14,8 @@ import it.wanderlust.core.combat.Move.Type;
 import it.wanderlust.core.combat.RoundOutcome;
 import it.wanderlust.core.exploration.Area;
 import it.wanderlust.core.exploration.Map;
+import it.wanderlust.core.ui.InGameAction;
+import it.wanderlust.core.ui.MainMenuAction;
 import it.wanderlust.core.ui.WanderlustUI;
 
 /**
@@ -56,31 +58,6 @@ public class ConsoleUI implements WanderlustUI {
     @Override
     public void showMessage(String message) {
 	System.out.println(message);
-    }
-
-    @Override
-    public Integer mainMenu(List<String> commands) {
-	printMenu(commands);
-	System.out.println();
-
-	String input = getInput(null);
-
-	return Integer.valueOf(input);
-    }
-
-    /**
-     * Displays the main menu
-     * 
-     * @param commands
-     *            the list of commands of the menu
-     */
-    private void printMenu(List<String> commands) {
-	System.out.println();
-	for (int i = 0; i < commands.size(); i++) {
-	    String command = commands.get(i);
-	    System.out.println("[" + i + "] " + command);
-	}
-	System.out.println();
     }
 
     @Override
@@ -147,13 +124,6 @@ public class ConsoleUI implements WanderlustUI {
 	System.out.println("There are " + monsters.size() + " monsters here!");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * it.wanderlust.core.ui.WanderlustUI#showRoundOutcomeInfo(it.wanderlust.core.
-     * combat.RoundOutcome)
-     */
     @Override
     public void showRoundOutcomeInfo(RoundOutcome outcome) {
 	String attackerName = outcome.getAttacker().getName();
@@ -201,20 +171,63 @@ public class ConsoleUI implements WanderlustUI {
     }
 
     @Override
-    public Integer getNextPlayerAction(List<String> options) {
-	System.out.println("What do you want to do next?");
-	Integer choice = null;
+    public MainMenuAction mainMenu() {
+	MainMenuAction choice = null;
 
 	do {
-	    for (int i = 0; i < options.size(); i++) {
-		String option = options.get(i);
-		System.out.println("[" + i + "] " + option);
-	    }
-	    String input = getInput(null);
-	    choice = Integer.valueOf(input);
-	} while (choice < 0 || choice > options.size());
+	    int i = 0;
 
-	System.out.println();
+	    System.out.println();
+	    for (MainMenuAction action : MainMenuAction.values()) {
+		System.out.println("[" + i + "] " + action.toString());
+		i++;
+	    }
+	    System.out.println();
+
+	    try {
+		String input = getInput(null);
+		Integer value = Integer.valueOf(input);
+		if (value >= 0 && value < MainMenuAction.values().length) {
+		    choice = MainMenuAction.values()[value];
+		}
+	    } catch (Exception e) {
+		System.out.println("Invalid choice");
+	    }
+
+	} while (choice == null);
+
+	return choice;
+    }
+
+    @Override
+    public InGameAction inGameMenu() {
+	InGameAction choice = null;
+
+	do {
+	    int i = 0;
+
+	    System.out.println();
+	    System.out.println("What do you want to do next?");
+	    System.out.println();
+	    for (InGameAction action : InGameAction.values()) {
+		System.out.println("[" + i + "] " + action.toString());
+		i++;
+	    }
+	    System.out.println();
+
+	    String input = getInput(null);
+
+	    try {
+		Integer value = Integer.valueOf(input);
+		if (value >= 0 && value < InGameAction.values().length) {
+		    choice = InGameAction.values()[value];
+		}
+	    } catch (Exception e) {
+		System.out.println("Invalid choice");
+	    }
+
+	} while (choice == null);
+
 	return choice;
     }
 

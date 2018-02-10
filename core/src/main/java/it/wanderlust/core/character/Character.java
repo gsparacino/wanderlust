@@ -61,4 +61,11 @@ public abstract class Character {
      */
     public abstract Move attack();
 
+    /**
+     * @return <code>true</code> if the character is alive, else otherwise
+     */
+    public boolean isAlive() {
+	return this.getHp() > 0;
+    };
+
 }
