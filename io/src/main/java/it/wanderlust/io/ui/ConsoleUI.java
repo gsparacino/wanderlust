@@ -236,13 +236,13 @@ public class ConsoleUI implements WanderlustUI {
     @Override
     public void save(PersistenceManager fileManager, GameData game) {
 	System.out.println();
-	boolean done = false;
 
-	do {
-	    String name = game.getPlayer().getName();
-	    done = fileManager.save(name, game);
-	} while (!done);
+	String name = game.getPlayer().getName();
+	boolean done = fileManager.save(name, game);
 
+	if (done) {
+	    System.out.println("Created a new save named ".concat(name));
+	}
     }
 
     @Override
@@ -251,7 +251,7 @@ public class ConsoleUI implements WanderlustUI {
 	GameData game = null;
 
 	do {
-	    String save = getInput("Save name");
+	    String save = getInput("Name of the character");
 	    game = fileManager.load(save);
 	} while (game == null);
 

@@ -3,6 +3,8 @@
  */
 package it.wanderlust.game;
 
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.List;
 
 import it.wanderlust.core.character.enemy.Monster;
@@ -11,9 +13,12 @@ import it.wanderlust.core.combat.Fight;
 import it.wanderlust.core.combat.RoundOutcome;
 import it.wanderlust.core.exploration.Area;
 import it.wanderlust.core.exploration.Map;
+import it.wanderlust.core.persistence.GameData;
+import it.wanderlust.core.persistence.PersistenceManager;
 import it.wanderlust.core.ui.InGameAction;
 import it.wanderlust.core.ui.MainMenuAction;
 import it.wanderlust.core.ui.WanderlustUI;
+import it.wanderlust.io.persistence.FileManager;
 import it.wanderlust.io.ui.ConsoleUI;
 
 /**
@@ -30,9 +35,12 @@ public class Wanderlust {
 
     /**
      * The main method
+     * 
+     * @throws IOException
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 	WanderlustUI ui = new ConsoleUI();
+	PersistenceManager persistence = new FileManager(Paths.get("/.saves"));
 
 	ui.showTitle();
 
@@ -42,10 +50,13 @@ public class Wanderlust {
 	case NEW_GAME:
 	    Player player = createPlayerCharacter(ui);
 	    Map map = new Map();
-	    play(map, player, ui);
+	    play(map, player, ui, persistence);
 	    break;
 	case LOAD:
-	    // TODO: persistence
+	    GameData game = ui.load(persistence);
+	    Player savedPlayer = game.getPlayer();
+	    Map savedMap = game.getMap();
+	    play(savedMap, savedPlayer, ui, persistence);
 	    break;
 	case EXIT:
 	    quit(ui);
@@ -66,7 +77,7 @@ public class Wanderlust {
      * @param ui
      *            the User Interface
      */
-    private static void play(Map map, Player player, WanderlustUI ui) {
+    private static void play(Map map, Player player, WanderlustUI ui, PersistenceManager persistence) {
 	boolean exit = false;
 
 	do {
@@ -80,7 +91,7 @@ public class Wanderlust {
 
 	    if (player.isAlive()) {
 		InGameAction nextAction = ui.inGameMenu();
-		exit = performNextAction(nextAction, map, player, ui);
+		exit = performNextAction(nextAction, map, player, ui, persistence);
 	    }
 	} while (player.isAlive() && !exit);
 
@@ -101,7 +112,8 @@ public class Wanderlust {
      * @return <code>true</code> if the game should return to the main menu,
      *         <code>false</code> otherwise
      */
-    private static boolean performNextAction(InGameAction nextAction, Map map, Player player, WanderlustUI ui) {
+    private static boolean performNextAction(InGameAction nextAction, Map map, Player player, WanderlustUI ui,
+	    PersistenceManager persistence) {
 	boolean exit = false;
 
 	switch (nextAction) {
@@ -110,7 +122,8 @@ public class Wanderlust {
 	    map.explore(nextArea, player);
 	    break;
 	case SAVE:
-	    // TODO: persistence
+	    GameData game = new GameData(player, map);
+	    ui.save(persistence, game);
 	    break;
 	case QUIT:
 	    exit = true;
