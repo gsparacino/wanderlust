@@ -17,6 +17,8 @@ import it.wanderlust.core.combat.Move.Type;
  */
 public class Monster extends Character {
 
+    private static final long serialVersionUID = 5710331201527864443L;
+
     /**
      * Creates a new monster
      */

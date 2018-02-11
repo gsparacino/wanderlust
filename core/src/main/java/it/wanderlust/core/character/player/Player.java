@@ -16,6 +16,7 @@ import it.wanderlust.core.ui.WanderlustUI;
  */
 public class Player extends Character {
 
+    private static final long serialVersionUID = 1271031214449318835L;
     private Integer xp;
     private final WanderlustUI ui;
 

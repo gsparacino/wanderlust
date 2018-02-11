@@ -1,7 +1,9 @@
 /**
  * 
  */
-package it.wanderlust.io.system;
+package it.wanderlust.core.persistence;
+
+import java.io.Serializable;
 
 import it.wanderlust.core.character.player.Player;
 import it.wanderlust.core.exploration.Map;
@@ -12,8 +14,9 @@ import it.wanderlust.core.exploration.Map;
  * @author Gabriele Sparacino
  *
  */
-public class GameData {
+public class GameData implements Serializable {
 
+    private static final long serialVersionUID = -5000773198535771390L;
     private final Player player;
     private final Map map;
 

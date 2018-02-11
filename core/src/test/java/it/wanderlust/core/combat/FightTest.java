@@ -16,9 +16,6 @@ import it.wanderlust.core.character.enemy.Monster;
  */
 public class FightTest extends Assert {
 
-    /**
-     * 
-     */
     private static final String DEFENDER_NAME = "Defender";
     private static final String ATTACKER_NAME = "Attacker";
 

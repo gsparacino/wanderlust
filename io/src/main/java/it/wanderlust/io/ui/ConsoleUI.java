@@ -14,6 +14,8 @@ import it.wanderlust.core.combat.Move.Type;
 import it.wanderlust.core.combat.RoundOutcome;
 import it.wanderlust.core.exploration.Area;
 import it.wanderlust.core.exploration.Map;
+import it.wanderlust.core.persistence.GameData;
+import it.wanderlust.core.persistence.PersistenceManager;
 import it.wanderlust.core.ui.InGameAction;
 import it.wanderlust.core.ui.MainMenuAction;
 import it.wanderlust.core.ui.WanderlustUI;
@@ -229,6 +231,31 @@ public class ConsoleUI implements WanderlustUI {
 	} while (choice == null);
 
 	return choice;
+    }
+
+    @Override
+    public void save(PersistenceManager fileManager, GameData game) {
+	System.out.println();
+	boolean done = false;
+
+	do {
+	    String name = game.getPlayer().getName();
+	    done = fileManager.save(name, game);
+	} while (!done);
+
+    }
+
+    @Override
+    public GameData load(PersistenceManager fileManager) {
+	System.out.println();
+	GameData game = null;
+
+	do {
+	    String save = getInput("Save name");
+	    game = fileManager.load(save);
+	} while (game == null);
+
+	return game;
     }
 
 }

@@ -3,6 +3,7 @@
  */
 package it.wanderlust.core.exploration;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,8 +15,9 @@ import it.wanderlust.core.character.enemy.Monster;
  * @author Gabriele Sparacino
  *
  */
-public class Area {
+public class Area implements Serializable {
 
+    private static final long serialVersionUID = -1790888380675244210L;
     public final List<Monster> monsters = new ArrayList<>();
 
     public enum Type {

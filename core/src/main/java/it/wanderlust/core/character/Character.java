@@ -3,14 +3,17 @@
  */
 package it.wanderlust.core.character;
 
+import java.io.Serializable;
+
 import it.wanderlust.core.combat.Move;
 
 /**
  * @author Gabriele Sparacino
  *
  */
-public abstract class Character {
+public abstract class Character implements Serializable {
 
+    private static final long serialVersionUID = 3452219191313271526L;
     private final String name;
     private Integer hp;
 

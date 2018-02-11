@@ -3,6 +3,7 @@
  */
 package it.wanderlust.core.exploration;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -16,8 +17,9 @@ import it.wanderlust.core.exploration.Area.Type;
  * @author Gabriele Sparacino
  *
  */
-public class Map {
+public class Map implements Serializable {
 
+    private static final long serialVersionUID = 6133108113919098380L;
     private Area currentArea;
     private List<Area> neighboringAreas;
 

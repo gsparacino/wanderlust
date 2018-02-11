@@ -8,6 +8,8 @@ import it.wanderlust.core.combat.Move;
 import it.wanderlust.core.combat.RoundOutcome;
 import it.wanderlust.core.exploration.Area;
 import it.wanderlust.core.exploration.Map;
+import it.wanderlust.core.persistence.GameData;
+import it.wanderlust.core.persistence.PersistenceManager;
 
 /**
  * Abstracts the basic interactions between the core game logic and the User
@@ -96,6 +98,25 @@ public interface WanderlustUI {
      * @return the index of next {@link Area} of the map to explore
      */
     public Integer getNextArea(Map map);
+
+    /**
+     * Game saving menu
+     * 
+     * @param fileManager
+     *            the persistence manager
+     * @param game
+     *            the game data to save
+     */
+    public void save(PersistenceManager fileManager, GameData game);
+
+    /**
+     * Game loading menu
+     * 
+     * @param fileManager
+     *            the persistence manager
+     * @return the data of the loaded game
+     */
+    public GameData load(PersistenceManager fileManager);
 
     /**
      * Quits the game
