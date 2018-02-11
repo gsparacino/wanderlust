@@ -40,7 +40,7 @@ public class Wanderlust {
      */
     public static void main(String[] args) throws IOException {
 	WanderlustUI ui = new ConsoleUI();
-	PersistenceManager persistence = new FileManager(Paths.get("/.saves"));
+	PersistenceManager persistence = new FileManager(Paths.get("./saves"));
 
 	ui.showTitle();
 
